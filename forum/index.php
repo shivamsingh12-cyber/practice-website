@@ -34,62 +34,26 @@
   <div class="container">
     <h2 class="text-center">Browse categories</h2>
     <div class="row">
+      <?php
+      $sql="SELECT * FROM categories";
+      $result=mysqli_query($conn, $sql);
+      while ($row=mysqli_fetch_assoc($result)) {
+        $category_name=$row['category_name'];
+        $category_desc=$row['category_description'];
+        echo " <div class='col-md-4 my-2'>
+        <div class='card' style='width: 18rem;'>
+          <img src='img/slide-1.jpeg' class='card-img-top'>
+          <div class='card-body'>
+            <h5 class='card-title'>".$category_name."</h5>
+            <p class='card-text'>".$category_desc."</p>
+            <a href='#' class='btn btn-primary'>View Thread</a>
+          </div>
+        </div>
+      </div>";
+      }
+      ?>
       <!-- Use for loop -->
-      <div class="col-md-4 my-2">
-        <div class="card" style="width: 18rem;">
-          <img src="img/slide-1.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">View Thread</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 my-2">
-        <div class="card" style="width: 18rem;">
-          <img src="img/slide-1.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 my-2">
-        <div class="card" style="width: 18rem;">
-          <img src="img/slide-1.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 my-2">
-        <div class="card" style="width: 18rem;">
-          <img src="img/slide-1.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4 my-2">
-        <div class="card" style="width: 18rem;">
-          <img src="img/slide-1.jpeg" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-              content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
+    
     </div>
   </div>
   <?php
