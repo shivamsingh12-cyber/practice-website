@@ -32,7 +32,7 @@
 </div>
 
   <div class="container">
-    <h2 class="text-center">Browse categories</h2>
+    <h2 class="text-center my-4">Browse categories</h2>
     <div class="row">
       <?php
       $sql="SELECT * FROM categories";
@@ -40,13 +40,14 @@
       while ($row=mysqli_fetch_assoc($result)) {
         $category_name=$row['category_name'];
         $category_desc=$row['category_description'];
+        $catid=$row['category_id'];
         echo " <div class='col-md-4 my-2'>
         <div class='card' style='width: 18rem;'>
           <img src='img/slide-1.jpeg' class='card-img-top'>
           <div class='card-body'>
-            <h5 class='card-title'>".$category_name."</h5>
+            <h5 class='card-title'><a href='threadlist.php?catid=".$catid."'>".$category_name."</a></h5>
             <p class='card-text'>".$category_desc."</p>
-            <a href='#' class='btn btn-primary'>View Thread</a>
+            <a href='threadlist.php?catid=".$catid."' class='btn btn-primary'>View Thread</a>
           </div>
         </div>
       </div>";
