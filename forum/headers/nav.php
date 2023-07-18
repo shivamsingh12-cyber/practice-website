@@ -38,4 +38,21 @@ echo "
  
 </div>
 </nav>";
+
+if (isset($_GET['signupsuccess'])&& $_GET['signupsuccess']=="true") {
+  echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+  <strong>Success</strong> You are logged in.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
+}
+else {
+  echo'<div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
+  <strong>Failed </strong>'.$_GET['error'].'
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>';
+} 
 ?>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <!-- INSERT INTO `threads` (`thread_id`, `thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('1', 'unable to install pyaudio. help me', 'bhai install nhi ho rha h koi madad kro meri bhai.', '1', '0', current_timestamp()); -->
+    <!-- INSERT INTO `comments` (`comment_id`, `comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('1', 'this is a comment', '1', '0', current_timestamp()); -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
@@ -42,26 +42,69 @@
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
       <p>Posted by: <b>Shivam</b> </p>  
     </div>
-       
+
+    <?php
+   $showAlert=false;
+    $method=$_SERVER['REQUEST_METHOD'];
+    if ($method=='POST') {
+          $comment=$_POST['comment'];
+          $sql="INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '0', current_timestamp())";
+          $result=mysqli_query($conn, $sql);
+          $showAlert=true;
+          if ($showAlert) {
+            echo '<div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Aww yeah, you have successfully added question.</p>
+            <hr>
+          </div>';
+          }
+    } 
+    
+    ?>
+      <!-- form -->
+    <div class="container">
+      <h2>Post a comment</h2>
+      <form action="<?php $_SERVER['REQUEST_URI']?>" method="post">
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Type your comments</label>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
+    </div>
+
+
     <div class="container my-4" id="ques">
         <h2>Discussion</h2>
-        <!-- <?php
-      $sql="SELECT * FROM `threads` WHERE thread_cat_id=$id";
+         <?php
+         $noResult=false;
+      $sql="SELECT * FROM `comments` WHERE thread_id= $id";
+      // $sqll="SELECT UNIX_TIMESTAMP('current_time') FROM `comments`";
       $result=mysqli_query($conn, $sql);
+      // $result=mysqli_query($conn, $sqll);
       while ($row=mysqli_fetch_assoc($result)) {
-        $thread_title=$row['thread_title'];
-        $thread_desc=$row['thread_desc'];
-        $thread_id=$row['thread_id'];
+        $noResult=true;
+        $comment_id=$row['comment_id'];
+        $comment=$row['comment_content'];
+        $time=date("dS F Y g:i:s ",strtotime($row['comment_time']));
         echo "    <div class='media my-3'>
         <img src='img/slide-1.jpeg' class='mr-3' alt='...' width='54px'>
         <div class='media-body'>
-          <h5 class='mt-0'><a href='thread.php'>".$thread_title."</a></h5>
-         ".$thread_desc."
+        <p class='font-weight-bold my-0'>Annonymous at ".$time."</p>
+         ".$comment."
         </div>
       </div>";
       } 
-      ?>-->
+      if (!$noResult) {
+        echo "<div class='jumbotron jumbotron-fluid>
+        <div class='container'>
+          <h1 class='display-4 text-center'>Be the first to ask</h1>
+        </div>
+      </div>";
+      }
+      ?>
   
 
     </div>
