@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 echo "
 <nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
 <a class='navbar-brand' href='#'>CodeMe</a>
@@ -29,30 +31,45 @@ echo "
       <a class='nav-link disabled' href='#' tabindex='-1' aria-disabled='true'>Disabled</a>
     </li>
   </ul>
-  <form class='form-inline my-2 my-lg-0'>
+  <div class='row mx-2'>";
+  if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true) {
+      echo "  <form class='form-inline my-2 my-lg-0'>
+      <input class='form-control mr-sm-2' type='search' placeholder='Search' aria-label='Search'>
+      <button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Search</button>
+     <p class='text-light my-0 mx-2'> Welcome ".$_SESSION['useremail']."</p>
+     <button class='btn btn-outline-success my-2 my-sm-0 ml-5' ><a href='logout.php'>Logout</a></button>
+    </form>";
+  }
+  else {
+    echo "<form class='form-inline my-2 my-lg-0'>
     <input class='form-control mr-sm-2' type='search' placeholder='Search' aria-label='Search'>
     <button class='btn btn-outline-success my-2 my-sm-0' type='submit'>Search</button>
   </form>
   <button class='btn btn-outline-success my-2 my-sm-0 ml-5' ><a href='login.php'>Login</a></button>
-  <button class='btn btn-outline-success my-2 my-sm-0 mx-2' ><a href='signup.php'>Sign Up</a></button>
+  <button class='btn btn-outline-success my-2 my-sm-0 mx-2' ><a href='signup.php'>Sign Up</a></button>";
+  }
  
+ 
+  echo "</div>
 </div>
 </nav>";
 
-if (isset($_GET['signupsuccess'])&& $_GET['signupsuccess']=="true") {
-  echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
-  <strong>Success</strong> You are logged in.
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>';
-}
-else {
-  echo'<div class="alert alert-danger alert-dismissible fade show my-0" role="alert">
-  <strong>Failed </strong>'.$_GET['error'].'
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>';
-} 
+
+  if (isset($_GET['signupsuccess'])&& $_GET['signupsuccess']=="true") {
+    echo '<div class="alert alert-success alert-dismissible fade show my-0" role="alert">
+    <strong>Success</strong> You are logged in.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>';
+  }
+  elseif ($_GET['signupsuccess']="" && $_GET['signupsuccess']=="false") {
+    echo "<div class='alert alert-danger alert-dismissible fade show my-0' role='alert'>
+    <strong>Failed </strong>".$_GET['error']."
+    <button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+      <span aria-hidden='true'>&times;</span>
+    </button>
+  </div>";
+  } 
+
 ?>

@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
         echo $showError;
     }
     else{
-        if ($user_pass=$cpass) {
-            $hash= password_hash($pass, PASSWORD_DEFAULT);
-            $SQL="INSERT INTO `users` (`user_email`, `user_pass`, `timestamp`) VALUES ('$user_email', '$hash', current_timestamp())";
-            $result=mysqli_query($conn, $SQL);
+        if ($user_pass==$cpass) {
+            $hash= password_hash($user_pass, PASSWORD_DEFAULT);
+            $sql="INSERT INTO `users` (`user_email`, `user_pass`, `timestamp`) VALUES ('$user_email', '$hash', current_timestamp())";
+            $result=mysqli_query($conn, $sql);
             if ($result) {
                 $showAlert=true;
                 header("Location: /project/forum/index.php?signupsuccess=true");

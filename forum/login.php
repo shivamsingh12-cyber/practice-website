@@ -12,16 +12,16 @@
             require "headers/dbconnect.php";
             require "headers/nav.php";
   ?>
-<form action="project/forum/login.php" method="post">
+<form action="handle_login.php" method="post">
 
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp">
+    <input type="email" class="form-control" id="exampleInputEmail1" name="Email" aria-describedby="emailHelp">
     <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
   </div>
   <div class="form-group">
     <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" name="pass" id="exampleInputPassword1">
+    <input type="password" class="form-control" name="Pass" id="exampleInputPassword1">
   </div>
  
   <button type="submit" class="btn btn-primary">Submit</button>
