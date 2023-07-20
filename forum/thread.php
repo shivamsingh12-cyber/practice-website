@@ -32,6 +32,12 @@
       while ($row=mysqli_fetch_assoc($result)) {
         $title=$row['thread_title'];
         $desc=$row['thread_desc'];
+        $thread_user_id=$row['thread_user_id'];
+
+        $sql2="SELECT user_email FROM `users` WHERE sno='$thread_user_id'";
+        $result2=mysqli_query($conn, $sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        $posted_by = $row2['user_email'];
        
       }
       ?>
@@ -40,15 +46,17 @@
         <p class='lead'><?php echo $desc ?></p>
         <hr class='my-4'>
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      <p>Posted by: <b>Shivam</b> </p>  
+      <p>Posted by: <b><?php echo $posted_by ?></b> </p>  
     </div>
 
     <?php
    $showAlert=false;
     $method=$_SERVER['REQUEST_METHOD'];
+
     if ($method=='POST') {
+      $sno=$_POST['sno'];
           $comment=$_POST['comment'];
-          $sql="INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '0', current_timestamp())";
+          $sql="INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '$sno', current_timestamp())";
           $result=mysqli_query($conn, $sql);
           $showAlert=true;
           if ($showAlert) {
@@ -61,19 +69,30 @@
     } 
     
     ?>
+   
       <!-- form -->
-    <div class="container">
-      <h2>Post a comment</h2>
-      <form action="<?php $_SERVER['REQUEST_URI']?>" method="post">
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Type your comments</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
-        </div>
+      <?php
+      if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true) {
+    echo '    <div class="container">
+    <h2>Post a comment</h2>
+    <form action="'. $_SERVER['REQUEST_URI'].'" method="post">
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Type your comments</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
+        <input type="hidden" name="'.$_SESSION['sno'].'">
+      </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-    </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+  </div>';
+      }
+      else{
+        echo "
+        <h2>Post a comment</h2>
+        <p class='lead'>you are not logged in user! Please first login</p>";
+      }
+    ?>
 
 
     <div class="container my-4" id="ques">
@@ -81,18 +100,21 @@
          <?php
          $noResult=false;
       $sql="SELECT * FROM `comments` WHERE thread_id= $id";
-      // $sqll="SELECT UNIX_TIMESTAMP('current_time') FROM `comments`";
       $result=mysqli_query($conn, $sql);
-      // $result=mysqli_query($conn, $sqll);
       while ($row=mysqli_fetch_assoc($result)) {
         $noResult=true;
         $comment_id=$row['comment_id'];
         $comment=$row['comment_content'];
         $time=date("dS F Y g:i:s ",strtotime($row['comment_time']));
-        echo "    <div class='media my-3'>
+        $thread_user=$row['comment_by'];
+
+        $sql2="SELECT user_email FROM `users` WHERE sno='$thread_user'";
+        $result2=mysqli_query($conn, $sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        echo "<div class='media my-3'>
         <img src='img/slide-1.jpeg' class='mr-3' alt='...' width='54px'>
         <div class='media-body'>
-        <p class='font-weight-bold my-0'>Annonymous at ".$time."</p>
+        <p class='font-weight-bold my-0'>".$row2['user_email']." at ".$time."</p>
          ".$comment."
         </div>
       </div>";

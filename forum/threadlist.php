@@ -44,7 +44,7 @@
       </p>
       <hr class='my-4'>
       <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      Posted by: <b>Shivam</b>
+      Posted by: <b><?php$posted_by?></b>
     </div>
     <?php
    $showAlert=false;
@@ -52,7 +52,8 @@
     if ($method=='POST') {
           $th_title=$_POST['title'];
           $th_desc=$_POST['desc'];
-          $sql="INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '0', current_timestamp())";
+          $sno=$_POST['sno'];
+          $sql="INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '$sno', current_timestamp())";
           $result=mysqli_query($conn, $sql);
           $showAlert=true;
           if ($showAlert) {
@@ -65,26 +66,38 @@
     } 
     
     ?>
-    <div class="container">
-      <h2>Start a Discussion</h2>
-      <form action="<?php $_SERVER['REQUEST_URI']?>" method="post">
-        <div class="form-group">
-          <label for="exampleInputEmail1">Title</label>
-          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name='title'>
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Elaborate concern</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc"></textarea>
-        </div>
+    <?php
+      if (isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true) {
+    echo '<div class="container">
+    <h2>Start a Discussion</h2>
+    <form action="'. $_SERVER["REQUEST_URI"].'" method="post">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Title</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="title">
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Elaborate concern</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc"></textarea>
+        <input type="hidden" name="'.$_SESSION['sno'].'">
+      </div>
 
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div> 
+  </div>';
+      }
+      else{
+        echo "
+        <h2>Start a Discussion</h2>
+        <p class='lead'>you are not logged in user! Please first login</p>";
+      }
+    ?>
 
 
 
-  </div>
-  <div class="container my-4" id="ques">
+
+  
+  <div class="container my-4 mb-0" id="ques">
     <h2>Browse Questions</h2>
     <?php
         $noResult=true;
@@ -93,13 +106,22 @@
       while ($row=mysqli_fetch_assoc($result)) {
         $noResult=false;
         $thread_title=$row['thread_title'];
+        $thread_user=$row['thread_user_id'];
         $thread_desc=$row['thread_desc'];
         $thread_id=$row['thread_id'];
+
+
         $time=date("dS F Y g:s:i",strtotime($row['timestamp']));
+        $sql2="SELECT user_email FROM `users` WHERE sno='$thread_user'";
+        $result2=mysqli_query($conn, $sql2);
+        $row2=mysqli_fetch_assoc($result2);
+        $posted_by = $row2['user_email'];
+
         echo "    <div class='media my-3'>
         <img src='img/slide-1.jpeg' class='mr-3' alt='...' width='54px'>
         <div class='media-body'>
-        <p class='font-weight-bold my-0'>Anonymous user at ".$time."</p>
+        <p class='font-weight-bold my-0'>".$row2['user_email']."
+ at ".$time."</p>
           <h5 class='mt-0'><a href='thread.php?threadid=".$id."'>".$thread_title."</a></h5>
          ".$thread_desc."
         </div>
