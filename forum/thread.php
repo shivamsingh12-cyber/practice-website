@@ -54,7 +54,7 @@
     $method=$_SERVER['REQUEST_METHOD'];
 
     if ($method=='POST') {
-      $sno=$_POST['sno'];
+           $sno=$_POST["sno"];
           $comment=$_POST['comment'];
           $sql="INSERT INTO `comments` (`comment_content`, `thread_id`, `comment_by`, `comment_time`) VALUES ('$comment', '$id', '$sno', current_timestamp())";
           $result=mysqli_query($conn, $sql);
@@ -88,9 +88,21 @@
   </div>';
       }
       else{
-        echo "
+        echo '    <div class="container">
         <h2>Post a comment</h2>
-        <p class='lead'>you are not logged in user! Please first login</p>";
+        <form action="'. $_SERVER['REQUEST_URI'].'" method="post">
+        <div class="form-group">
+        <label for="exampleInputEmail1 "><p class="lead">
+        you are not login !   Please first login   </p></label>
+      
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1 "></label>
+       
+      </div>
+        </form>
+      </div>
+      </div>';
       }
     ?>
 
@@ -111,6 +123,7 @@
         $sql2="SELECT user_email FROM `users` WHERE sno='$thread_user'";
         $result2=mysqli_query($conn, $sql2);
         $row2=mysqli_fetch_assoc($result2);
+
         echo "<div class='media my-3'>
         <img src='img/slide-1.jpeg' class='mr-3' alt='...' width='54px'>
         <div class='media-body'>

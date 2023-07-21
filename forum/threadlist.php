@@ -49,10 +49,12 @@
     <?php
    $showAlert=false;
     $method=$_SERVER['REQUEST_METHOD'];
-    if ($method=='POST') {
+
+    if ($method=='POST') {                                                                     
+          $sno=$_POST['sno'];
           $th_title=$_POST['title'];
           $th_desc=$_POST['desc'];
-          $sno=$_POST['sno'];
+         
           $sql="INSERT INTO `threads` (`thread_title`, `thread_desc`, `thread_cat_id`, `thread_user_id`, `timestamp`) VALUES ('$th_title', '$th_desc', '$id', '$sno', current_timestamp())";
           $result=mysqli_query($conn, $sql);
           $showAlert=true;
@@ -87,9 +89,23 @@
   </div>';
       }
       else{
-        echo "
+        echo '<div class="container">
         <h2>Start a Discussion</h2>
-        <p class='lead'>you are not logged in user! Please first login</p>";
+        <form action="'. $_SERVER["REQUEST_URI"].'" method="post">
+          <div class="form-group">
+            <label for="exampleInputEmail1 "><p class="lead">
+            you are not login !  Please first login    </p></label>
+          
+          </div>
+          <div class="form-group">
+            <label for="exampleFormControlTextarea1 "></label>
+           
+          </div>
+    
+     
+        </form>
+      </div> 
+      </div>';
       }
     ?>
 
@@ -115,7 +131,7 @@
         $sql2="SELECT user_email FROM `users` WHERE sno='$thread_user'";
         $result2=mysqli_query($conn, $sql2);
         $row2=mysqli_fetch_assoc($result2);
-        $posted_by = $row2['user_email'];
+ 
 
         echo "    <div class='media my-3'>
         <img src='img/slide-1.jpeg' class='mr-3' alt='...' width='54px'>
