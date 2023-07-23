@@ -1,10 +1,10 @@
 <?php
-$showError="false";
+
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
     include "headers/dbconnect.php";
     $email=$_POST['Email'];
     $pass=$_POST['Pass'];
-
+    $showError="false";
     $sql="select * from users where user_email='$email'";
     $result=mysqli_query($conn,$sql);
     $numRows=mysqli_num_rows($result);
@@ -15,14 +15,16 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                 $_SESSION['loggedin']=true;
                 $_SESSION['sno']=$row['sno'];
                 $_SESSION['useremail']=$email;
-                echo "you are logged in";
+                //echo "you are logged in";
+                header("location: /project/forum/index.php?loginsuccess=true");
+                exit();
             } 
-            header("location: /project/forum/index.php");
-            
+        
     }
     else{
-        header("location: /project/forum/index.php");
+        $showError="User_id_is_not_available";
     }
+    header("location: /project/forum/index.php?loginsuccess='false'&error=$showError");
    
 }
 ?>

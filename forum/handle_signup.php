@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
     $numRows=mysqli_num_rows($result);
     if ($numRows>0) {
         $showError="Email already in use";
-        echo $showError;
+        // echo $showError;
     }
     else{
         if ($user_pass==$cpass) {
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
            
         }
     }
-    header("Location: /project/forum/index.php?signupsuccess=false&error=$showError");
+    header("Location: /project/forum/index.php?signupsuccess='false'&error=$showError");
  
      
 }

@@ -22,17 +22,18 @@
             require "headers/dbconnect.php";
             require "headers/nav.php";
   ?>
-    <!-- carousel -->
+
 
     <div class="container my-4">
     <?php
       $id=$_GET['threadid'];
-      $sql="SELECT * FROM threads where thread_id='$id'";
+      $sql="SELECT * FROM `threads` WHERE thread_id='$id'";
       $result=mysqli_query($conn, $sql);
+      
       while ($row=mysqli_fetch_assoc($result)) {
-        $title=$row['thread_title'];
-        $desc=$row['thread_desc'];
-        $thread_user_id=$row['thread_user_id'];
+        $title = $row['thread_title'];
+        $desc = $row['thread_desc'];
+        $thread_user_id = $row['thread_user_id'];
 
         $sql2="SELECT user_email FROM `users` WHERE sno='$thread_user_id'";
         $result2=mysqli_query($conn, $sql2);
@@ -41,18 +42,10 @@
        
       }
       ?>
-      <div class='jumbotron'>
-        <h1 class='display-4'> <?php echo $title ?> </h1>
-        <p class='lead'><?php echo $desc ?></p>
-        <hr class='my-4'>
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      <p>Posted by: <b><?php echo $posted_by ?></b> </p>  
-    </div>
 
-    <?php
+     <?php
    $showAlert=false;
     $method=$_SERVER['REQUEST_METHOD'];
-
     if ($method=='POST') {
            $sno=$_POST["sno"];
           $comment=$_POST['comment'];
@@ -69,6 +62,16 @@
     } 
     
     ?>
+
+      <div class='jumbotron'>
+        <h1 class='display-4'> <?php echo $title; ?> </h1>
+        <p class='lead'><?php echo $desc; ?></p>
+        <hr class='my-4'>
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+      <p>Posted by: <b><?php echo $posted_by; ?></b> </p>  
+    </div>
+
+   
    
       <!-- form -->
       <?php
@@ -79,7 +82,7 @@
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Type your comments</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"></textarea>
-        <input type="hidden" name="'.$_SESSION['sno'].'">
+        <input type="hidden" name="sno" value="'.$_SESSION['sno'].'">
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>

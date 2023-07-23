@@ -32,8 +32,10 @@
       while ($row=mysqli_fetch_assoc($result)) {
         $category_name=$row['category_name'];
         $category_desc=$row['category_description'];
-        $catid=$row['category_id'];
-        echo " ";
+        $categoryid=$row['category_id'];
+
+
+      
       }
       ?>
     <div class='jumbotron'>
@@ -44,7 +46,7 @@
       </p>
       <hr class='my-4'>
       <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-      Posted by: <b><?php$posted_by?></b>
+       <button class="btn btn-success">Learn more</button></b>
     </div>
     <?php
    $showAlert=false;
@@ -80,7 +82,7 @@
       <div class="form-group">
         <label for="exampleFormControlTextarea1">Elaborate concern</label>
         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="desc"></textarea>
-        <input type="hidden" name="'.$_SESSION['sno'].'">
+        <input type="hidden" name="sno" value="'.$_SESSION['sno'].'">
       </div>
 
       <button type="submit" class="btn btn-primary">Submit</button>
@@ -131,6 +133,7 @@
         $sql2="SELECT user_email FROM `users` WHERE sno='$thread_user'";
         $result2=mysqli_query($conn, $sql2);
         $row2=mysqli_fetch_assoc($result2);
+    
  
 
         echo "    <div class='media my-3'>
