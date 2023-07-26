@@ -3,7 +3,7 @@
 
 $showError="false";
 if ($_SERVER['REQUEST_METHOD']=="POST") {
-    include "headers/dbconnect.php";
+    include "partials/dbconnect.php";
     $user_email=$_POST['email'];
     $user_pass=$_POST['pass'];
     $cpass=$_POST['cpass'];
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
             $result=mysqli_query($conn, $sql);
             if ($result) {
                 $showAlert=true;
-                header("Location: /project/forum/index.php?signupsuccess=true");
+                header("Location: /index.php?signupsuccess=true");
                 exit();
             }
         }
@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD']=="POST") {
            
         }
     }
-    header("Location: /project/forum/index.php?signupsuccess='false'&error=$showError");
+    header("Location: /index.php?signupsuccess='false'&error=$showError");
  
      
 }

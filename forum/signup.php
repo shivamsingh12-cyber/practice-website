@@ -9,8 +9,8 @@
 </head>
 <body>
 <?php
-            require "headers/dbconnect.php";
-            require "headers/nav.php";
+            require "partials/dbconnect.php";
+            require "partials/_nav.php";
   ?>
 <form action="handle_signup.php" method="post">
 

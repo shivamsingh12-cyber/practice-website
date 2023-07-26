@@ -1,7 +1,7 @@
 <?php
 
 if ($_SERVER["REQUEST_METHOD"]=="POST") {
-    include "headers/dbconnect.php";
+    include "partials/dbconnect.php";
     $email=$_POST['Email'];
     $pass=$_POST['Pass'];
     $showError="false";
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
                 $_SESSION['sno']=$row['sno'];
                 $_SESSION['useremail']=$email;
                 //echo "you are logged in";
-                header("location: /project/forum/index.php?loginsuccess=true");
+                header("location: /index.php?loginsuccess=true");
                 exit();
             } 
         
@@ -24,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"]=="POST") {
     else{
         $showError="User_id_is_not_available";
     }
-    header("location: /project/forum/index.php?loginsuccess='false'&error=$showError");
+    header("location: /index.php?loginsuccess='false'&error=$showError");
    
 }
 ?>
