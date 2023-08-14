@@ -16,7 +16,7 @@
             <nav class="flex justify-between">
                 <div class="logo font-bold flex items-center text-blue">Shivam Fitness</div>
                 <ul class="navbar flex items-center">
-                    <li>Home</li>
+                    <li>Homea</li>
                     <li>About</li>
                     <li>Services</li>
                     <li>Contact Us</li>
