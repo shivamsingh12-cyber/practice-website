@@ -1,0 +1,104 @@
+  @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+
+}
+
+.container{
+    max-width: 80vw;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.navbar{
+    display: flex;
+    height: 67px;
+}
+
+.navbar li{
+        list-style: none;
+        margin: 0 12px;
+}
+
+.topleft{
+    width: 50%;
+}
+
+.topright{
+    width: 50%;
+    padding-top: 51px;
+    margin-left: 115px;
+}
+
+.section1{
+    min-height: 76vh;
+}
+
+.logo{
+    font-size: 1.3rem;
+}
+
+.mainLogo{
+    width: 522px;
+    height: 471px;
+   
+}
+
+.paracenter{
+    max-width: 571px;
+    margin: 0 auto;
+    padding-left: 52px;
+}
+
+
+.box{
+    padding: 8px 0;
+    margin: 40px 22px;
+    min-width: 18vw;
+    border: 2px solid black;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.box ul{
+    list-style: none;
+}
+
+.box h2{
+    font-weight: bold;
+}
+
+.box ul li{
+    margin: 12px 2px;
+}
+
+.plantTable{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section3 table{
+    width: 100%;
+    margin: 40px 0;
+    border-collapse: collapse;
+}
+
+.section3 table th{
+    width: 23vw;
+    border-bottom: 2px solid black;
+    padding: 15px 0;
+}
+
+.section3 table td{
+    border-bottom: 2px solid black;
+}
+
+footer{
+   
+    max-width: 381px;
+    margin: auto;
+    padding: 20px 0;
+    padding-left: 51px;
+}
+
